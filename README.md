@@ -1,8 +1,4 @@
 # Web Crawler Test
 
-Write a simple web crawler in a programming language of your choice. The
-crawler should be limited to one domain - so when crawling SEDNA.com it would
-crawl all pages within the domain, but not follow external links, for example
-to the LinkedIn and Twitter accounts. Given a URL, it should output a site map,
-showing which static assets each page depends on, and the links between pages.
-
+A simple web crawler that crawls all pages within a given domain without
+following external links. It also output static assets each page depends on.
