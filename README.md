@@ -4,4 +4,4 @@ A simple web crawler that crawls all pages within a given domain without
 following external links. It also outputs static assets each page depends on.
 
 ### to run
-gradle bootRun --args='<root-url>'
+gradle bootRun --args='&lt;root-url&gt;'
