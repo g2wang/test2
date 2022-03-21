@@ -24,41 +24,41 @@ public class CrawlerDemoApplication {
 
     private static Set<String> visited = Collections.synchronizedSet(new HashSet<>());
     private static final Pattern SEDNA_PATTERN = Pattern.compile("^https://sedna\\.com/.*$");
-	private static final String INDENT = "  ";
+    private static final String INDENT = "  ";
 
-	private static void crawl(String url, String parentUrl) {
+    private static void crawl(String url, String parentUrl) {
         if (!visited.contains(url) && SEDNA_PATTERN.matcher(url).matches()) {
             try {
                 visited.add(url);
-				System.out.println("-----------------------------------");
-				System.out.println(url + ":");
-				System.out.println(INDENT + "referer: " + parentUrl);
+                System.out.println("-----------------------------------");
+                System.out.println(url + ":");
+                System.out.println(INDENT + "referer: " + parentUrl);
 
                 Document document = Jsoup.connect(url).get();
 
-				System.out.println(INDENT + "css: ");
-				Elements cssOnPage = document.select("link[href]")
-						.select("link[rel=stylesheet]");
-				for (Element css : cssOnPage) {
-					System.out.println(INDENT + INDENT + css.attr("href"));
-				}
+                System.out.println(INDENT + "css: ");
+                Elements cssOnPage = document.select("link[href]")
+                        .select("link[rel=stylesheet]");
+                for (Element css : cssOnPage) {
+                    System.out.println(INDENT + INDENT + css.attr("href"));
+                }
 
-				System.out.println(INDENT + "scripts: ");
-				Elements scriptsOnPage = document.select("script[src]");
-				for (Element script: scriptsOnPage) {
-					System.out.println(INDENT + INDENT + script.attr("src"));
-				}
+                System.out.println(INDENT + "scripts: ");
+                Elements scriptsOnPage = document.select("script[src]");
+                for (Element script: scriptsOnPage) {
+                    System.out.println(INDENT + INDENT + script.attr("src"));
+                }
 
-				System.out.println(INDENT + "images: ");
-				Elements imagesOnPage = document.select("img[src]");
-				for (Element img: imagesOnPage) {
-					System.out.println(INDENT + INDENT + img.attr("src"));
-				}
+                System.out.println(INDENT + "images: ");
+                Elements imagesOnPage = document.select("img[src]");
+                for (Element img: imagesOnPage) {
+                    System.out.println(INDENT + INDENT + img.attr("src"));
+                }
 
-				Elements linksOnPage = document.select("a[href]");
+                Elements linksOnPage = document.select("a[href]");
 
-				// use depth first search to crawl
-				for (Element link : linksOnPage) {
+                // use depth first search to crawl
+                for (Element link : linksOnPage) {
                     crawl(link.attr("abs:href"), url);
                 }
 
