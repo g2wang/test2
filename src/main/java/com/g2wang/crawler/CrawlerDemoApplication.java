@@ -19,7 +19,7 @@ public class CrawlerDemoApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(CrawlerDemoApplication.class, args);
-        crawl("https://sedna.com/", "");
+        crawl("https://sedna.com/", "N/A");
     }
 
     private static Set<String> visited = Collections.synchronizedSet(new HashSet<>());
