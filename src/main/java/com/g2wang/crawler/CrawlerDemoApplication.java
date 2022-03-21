@@ -19,15 +19,14 @@ public class CrawlerDemoApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(CrawlerDemoApplication.class, args);
-        crawl("https://sedna.com/", "N/A");
+        crawl(args[0], "N/A");
     }
 
     private static Set<String> visited = Collections.synchronizedSet(new HashSet<>());
-    private static final Pattern SEDNA_PATTERN = Pattern.compile("^https://sedna\\.com/.*$");
     private static final String INDENT = "  ";
 
     private static void crawl(String url, String parentUrl) {
-        if (!visited.contains(url) && SEDNA_PATTERN.matcher(url).matches()) {
+        if (!visited.contains(url)) {
             try {
                 visited.add(url);
                 System.out.println("-----------------------------------");
@@ -55,7 +54,7 @@ public class CrawlerDemoApplication {
                     System.out.println(INDENT + INDENT + img.attr("src"));
                 }
 
-                Elements linksOnPage = document.select("a[href]");
+                Elements linksOnPage = document.select("a[abs:href~=" + url + ".*]");
 
                 // use depth first search to crawl
                 for (Element link : linksOnPage) {
